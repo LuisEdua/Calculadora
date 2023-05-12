@@ -24,7 +24,7 @@ class Calculadora:
     def calcular_mediana(self, numeros_ordenados):
         n = len(numeros_ordenados)
         if n % 2 == 0:
-            mediana = int((numeros_ordenados[n//2] + numeros_ordenados[n//2 - 1])) / 2
+            mediana = (int(numeros_ordenados[n//2]) +int(numeros_ordenados[n//2 - 1])) / 2
         else:
             mediana = numeros_ordenados[n//2]
         return mediana
@@ -55,6 +55,10 @@ class Calculadora:
                 if i < len(self.resultados):
                     f.write(str(self.resultados[i]))
                 f.write('\n')  # Salto de línea para escribir la siguiente fila
+                
+    def calcular_rango(self, nums):
+        rango = int(max(nums)) - int(min(nums))
+        return rango
 
 
     def get_dat(self):
@@ -64,7 +68,7 @@ class Calculadora:
             if dato == 'Q' or dato == 'q':
                 condition = False
             else:
-                self.datos_brutos.append(dato)
+                self.datos_brutos.append(int(dato))
         
 
     def order(self):
@@ -75,15 +79,15 @@ class Calculadora:
         self.resultados.append(self.calcular_mediana(self.datos_ordenados))
         self.resultados.append('Moda')
         self.resultados.append(self.calcular_moda(self.datos_ordenados))
+        self.resultados.append('Rango')
+        self.resultados.append(self.calcular_rango(self.datos_ordenados))
 
     def read(self):
         with open("archivo.txt", "r") as f:
             for line in f:
                 values = line.split("\t")
                 first_column = values[0]
-                self.datos_brutos.append(first_column)
-
-        
+                self.datos_brutos.append(int(first_column))
 
     def case_1(self):
         self.get_dat()
@@ -107,9 +111,9 @@ class Calculadora:
 
     def calculadora(self):
         while True:
-            self.datos_brutos.clear
-            self.datos_ordenados.clear
-            self.resultados.clear
+            self.datos_brutos.clear()
+            self.datos_ordenados.clear()
+            self.resultados.clear()
             option = input('Seleccione la opción que desea realizar\n\t1.-Ingresar datos desde cero\n\t2.-Continuar ingresando datos\n\t3.-Salir\n')
             if self.switch(option):
                 break        
